@@ -29,3 +29,19 @@ From unique_titles
 Group By title
 Order By count Desc;
 
+--Create mentorship_eligibility table 
+Select Distinct On (e.emp_no) e.emp_no,
+	e.first_name,
+	e.last_name,
+	e.birth_date,
+	de.from_date,
+	de.to_date,
+	ti.title
+Into mentorship_eligibility
+From employees as e
+Inner Join dept_emp as de
+On (e.emp_no = de.emp_no)
+Inner Join titles as ti
+On (e.emp_no = ti.emp_no)
+Where (de.to_date = '9999-01-01')
+	And (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31');
